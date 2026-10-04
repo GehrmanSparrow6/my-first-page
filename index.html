@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2408090602044方子涵的第一个网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            background-color: #f5f9ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: #445;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-list a:hover {
+            color: #3498db;
+        }
+
+        /* 英雄主视觉区 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .hero-btn {
+            padding: 12px 36px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 通用板块样式 */
+        section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        /* 关于我 */
+        .about-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .about-info h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .about-info .sub {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .about-info p {
+            color: #555;
+            max-width: 500px;
+        }
+
+        /* 技能板块 */
+        .skill-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateX(5px);
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        /* 兴趣爱好 */
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .hobby-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .hobby-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .hobby-card h4 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .hobby-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* 课程表 */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px 10px;
+            text-align: center;
+            border: 1px solid #ecf0f1;
+        }
+
+        .schedule-table th {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 500;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+
+        /* 学习心得 */
+        .thoughts-box {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .thoughts-box p {
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        /* 回到顶部按钮 */
+        #backTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 998;
+        }
+
+        #backTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #2c3e50;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav>
+        <ul class="nav-list">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#skills">专业技能</a></li>
+            <li><a href="#hobbies">兴趣爱好</a></li>
+            <li><a href="#schedule">课程表</a></li>
+            <li><a href="#thoughts">学习心得</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主视觉区 -->
+    <section class="hero" id="home">
+        <h1>2408090602044方子涵的第一个网页</h1>
+        <p>欢迎来到我的个人网页 · 前端学习初体验</p>
+        <a href="#about" class="hero-btn">开始了解我</a>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <h2 class="section-title">关于我</h2>
+        <div class="about-card">
+            <img src="https://picsum.photos/id/1005/200/200" alt="头像" class="avatar">
+            <div class="about-info">
+                <h3>方子涵</h3>
+                <p class="sub">学号：2408090602044 | 数字媒体技术专业</p>
+                <p>我是一名热爱技术与设计的大二学生，目前就读于包装工程学院数字媒体技术专业。这是我制作的第一个网页，通过本次练习我初步掌握了HTML的基本结构和CSS样式美化方法，未来会继续深入学习前端开发，做出更有趣的作品。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业技能 -->
+    <section id="skills">
+        <h2 class="section-title">专业技能</h2>
+        <div class="skill-item">
+            <div class="skill-name">
+                <span>HTML 基础</span>
+                <span>85%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-progress" style="width: 85%"></div>
+            </div>
+        </div>
+        <div class="skill-item">
+            <div class="skill-name">
+                <span>CSS 样式美化</span>
+                <span>80%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-progress" style="width: 80%"></div>
+            </div>
+        </div>
+        <div class="skill-item">
+            <div class="skill-name">
+                <span>Photoshop 图像处理</span>
+                <span>75%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-progress" style="width: 75%"></div>
+            </div>
+        </div>
+        <div class="skill-item">
+            <div class="skill-name">
+                <span>Artios CAD 包装设计</span>
+                <span>70%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-progress" style="width: 70%"></div>
+            </div>
+        </div>
+        <div class="skill-item">
+            <div class="skill-name">
+                <span>JavaScript 入门</span>
+                <span>55%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-progress" style="width: 55%"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 兴趣爱好 -->
+    <section id="hobbies">
+        <h2 class="section-title">兴趣爱好</h2>
+        <div class="hobby-grid">
+            <div class="hobby-card">
+                <div class="hobby-icon">📷</div>
+                <h4>摄影摄像</h4>
+                <p>喜欢用镜头记录生活，擅长风景与人像拍摄</p>
+            </div>
+            <div class="hobby-card">
+                <div class="hobby-icon">🎨</div>
+                <h4>平面设计</h4>
+                <p>对视觉设计感兴趣，乐于创作创意海报</p>
+            </div>
+            <div class="hobby-card">
+                <div class="hobby-icon">💻</div>
+                <h4>编程开发</h4>
+                <p>享受代码实现效果的成就感，正在学习前端</p>
+            </div>
+            <div class="hobby-card">
+                <div class="hobby-icon">🎮</div>
+                <h4>游戏休闲</h4>
+                <p>课余时间喜欢玩游戏放松，也关注游戏设计</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 课程表 -->
+    <section id="schedule">
+        <h2 class="section-title">本周课程表</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>周一</th>
+                    <th>周二</th>
+                    <th>周三</th>
+                    <th>周四</th>
+                    <th>周五</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>第1-2节</td>
+                    <td>高等数学</td>
+                    <td>计算机图形学</td>
+                    <td>大学英语</td>
+                    <td>数字图像处理</td>
+                    <td>毛概</td>
+                </tr>
+                <tr>
+                    <td>第3-4节</td>
+                    <td>C语言程序设计</td>
+                    <td>设计素描</td>
+                    <td>包装概论</td>
+                    <td>高等数学</td>
+                    <td>计算机图形学</td>
+                </tr>
+                <tr>
+                    <td>第5-6节</td>
+                    <td>体育课</td>
+                    <td>数字图像处理</td>
+                    <td>C语言实验</td>
+                    <td>大学英语</td>
+                    <td>设计基础</td>
+                </tr>
+                <tr>
+                    <td>第7-8节</td>
+                    <td>自习</td>
+                    <td>社团活动</td>
+                    <td>自习</td>
+                    <td>团委工作</td>
+                    <td>自习</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 学习心得 -->
+    <section id="thoughts">
+        <h2 class="section-title">学习心得</h2>
+        <div class="thoughts-box">
+            <p>第一次接触网页制作，我才发现原来我们每天浏览的网页背后，是由一行行代码构建起来的。从最开始只知道几个简单的标签，到现在能做出一个完整美观的页面，我感受到了前端开发的魅力。</p>
+            <p>HTML 是网页的骨架，决定了页面有什么内容；CSS 是网页的外衣，决定了页面好不好看。想要做出优秀的网页，既要把结构写规范，也要懂审美、会布局。这次作业我尝试加入了导航栏、卡片、进度条、表格等多种元素，也学习了渐变、阴影、动画这些美化技巧。</p>
+            <p>我知道这只是前端学习的起点，后面还有 JavaScript、响应式布局、框架等很多知识等着我去探索。我会保持这份兴趣，多练习、多模仿优秀的网站，一步一步提升自己的能力，争取以后能做出真正实用又好看的网站。</p>
+        </div>
+    </section>
+
+    <!-- 回到顶部按钮 -->
+    <button id="backTop">↑</button>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2026 2408090602044方子涵 | 我的第一个网页作业</p>
+    </footer>
+
+    <script>
+        // 回到顶部功能
+        const backTopBtn = document.getElementById('backTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backTopBtn.classList.add('show');
+            } else {
+                backTopBtn.classList.remove('show');
+            }
+        });
+
+        backTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
